@@ -24,10 +24,16 @@ class PlanetsCollectionViewController: UICollectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+        // Listen for the notification
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateViews),
+                                               name: NSNotification.Name("plutosPlanetStatusChanged"),
+                                               object: nil)
+        
 		updateViews()
 	}
 	
-	func updateViews() {
+	@objc func updateViews() {
         collectionView?.reloadData()
 	}
     
@@ -37,7 +43,7 @@ class PlanetsCollectionViewController: UICollectionViewController {
         if segue.identifier == "ShowSettings" {
 			guard let detailVC = segue.destination as? SettingsViewController else { return }
             
-            detailVC.delegate = self
+//            detailVC.delegate = self
             
 			// Configure the popover on iPhone to not be fullscreen
 			detailVC.popoverPresentationController?.delegate = self
@@ -93,8 +99,8 @@ extension PlanetsCollectionViewController: UIAdaptivePresentationControllerDeleg
 	}
 }
 
-extension PlanetsCollectionViewController: SettingsViewControllerDelegate {
-    func plutosPlanetStatusDidChange(newValue: Bool) {
-        updateViews()
-    }
-}
+//extension PlanetsCollectionViewController: SettingsViewControllerDelegate {
+//    func plutosPlanetStatusDidChange(newValue: Bool) {
+//        updateViews()
+//    }
+//}

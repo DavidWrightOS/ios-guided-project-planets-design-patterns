@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol SettingsViewControllerDelegate {
-    func plutosPlanetStatusDidChange(newValue: Bool)
-}
+//protocol SettingsViewControllerDelegate {
+//    func plutosPlanetStatusDidChange(newValue: Bool)
+//}
 
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var shouldShowPlutoSwitch: UISwitch!
 
-    var delegate: SettingsViewControllerDelegate!
+//    var delegate: SettingsViewControllerDelegate!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -26,6 +26,9 @@ class SettingsViewController: UIViewController {
     
     @IBAction func changeShouldShowPluto(_ sender: UISwitch) {
         UserDefaults.standard.set(sender.isOn, forKey: .shouldShowPlutoKey)
-        delegate.plutosPlanetStatusDidChange(newValue: sender.isOn)
+        
+        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "plutosPlanetStatusChanged"), object: sender.isOn))
+        
+//        delegate.plutosPlanetStatusDidChange(newValue: sender.isOn)
     }
 }
