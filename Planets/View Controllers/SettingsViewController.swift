@@ -8,22 +8,24 @@
 
 import UIKit
 
+protocol SettingsViewControllerDelegate {
+    func plutosPlanetStatusDidChange(newValue: Bool)
+}
+
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var shouldShowPlutoSwitch: UISwitch!
 
+    var delegate: SettingsViewControllerDelegate!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateViews()
-    }
-    
-    private func updateViews() {
-        let userDefaults = UserDefaults.standard
-        shouldShowPlutoSwitch.isOn = userDefaults.bool(forKey: .shouldShowPlutoKey)
+        
+        shouldShowPlutoSwitch.isOn = UserDefaults.standard.bool(forKey: .shouldShowPlutoKey)
     }
     
     @IBAction func changeShouldShowPluto(_ sender: UISwitch) {
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(sender.isOn, forKey: .shouldShowPlutoKey)
+        UserDefaults.standard.set(sender.isOn, forKey: .shouldShowPlutoKey)
+        delegate.plutosPlanetStatusDidChange(newValue: sender.isOn)
     }
 }

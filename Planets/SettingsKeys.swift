@@ -9,5 +9,5 @@
 import Foundation
 
 extension String {
-    static var shouldShowPlutoKey = "ShouldShowPluto"
+    static let shouldShowPlutoKey = "ShouldShowPluto"
 }

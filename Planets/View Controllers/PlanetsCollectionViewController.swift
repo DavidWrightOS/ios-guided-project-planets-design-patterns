@@ -37,6 +37,8 @@ class PlanetsCollectionViewController: UICollectionViewController {
         if segue.identifier == "ShowSettings" {
 			guard let detailVC = segue.destination as? SettingsViewController else { return }
             
+            detailVC.delegate = self
+            
 			// Configure the popover on iPhone to not be fullscreen
 			detailVC.popoverPresentationController?.delegate = self
             
@@ -89,4 +91,10 @@ extension PlanetsCollectionViewController: UIAdaptivePresentationControllerDeleg
 		// popover, we should update the UI based on the new state
 		updateViews()
 	}
+}
+
+extension PlanetsCollectionViewController: SettingsViewControllerDelegate {
+    func plutosPlanetStatusDidChange(newValue: Bool) {
+        updateViews()
+    }
 }
